@@ -2,8 +2,10 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
 }
 
 .container {
@@ -48,3 +50,203 @@ h2 {
 .form-group input[type="submit"]:hover {
     background-color: #4cae4c;
 }
+
+#app {
+    background-color: aquamarine;
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+  }
+
+#homePage {
+    background-color: whitesmoke;
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 150px calc(100% - 250px) 100px;
+    background: linear-gradient(135deg, #f06, #ff9);
+}
+
+#servicesBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Full viewport height */
+    padding: 0px;
+  }
+  
+  /* Button styling */
+  .serviceBtns {
+    width: 90%;
+    max-width: 500px;
+    height: 20%;
+    background-color: #4285f4;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 20px; /* Space between buttons */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Hover and active states */
+  .serviceBtns:hover {
+    background-color: #357ae8;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .serviceBtns:active {
+    background-color: #2a65cc;
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 768px) {
+    .serviceBtns {
+      height: 200px;
+      font-size: 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .serviceBtns {
+      height: 150px;
+      font-size: 18px;
+    }
+  }
+
+
+
+
+
+ /* Container styling for button content */
+.serviceBtns {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* Service Name styling */
+  .serviceName {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    z-index: 2;
+    position: relative;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Service Description styling */
+  .serviceDescription {
+    font-size: 18px;
+    color: #e0e0e0;
+    z-index: 2;
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    padding: 0 15px;
+  }
+  
+  /* Service Price styling */
+  .servicePrice {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffd700; /* Gold color for the price */
+    z-index: 2;
+    position: relative;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .serviceName {
+      font-size: 24px;
+    }
+  
+    .serviceDescription {
+      font-size: 16px;
+    }
+  
+    .servicePrice {
+      font-size: 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .serviceName {
+      font-size: 20px;
+    }
+  
+    .serviceDescription {
+      font-size: 14px;
+    }
+  
+    .servicePrice {
+      font-size: 18px;
+    }
+  }
+
+#homePageHeader {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+
+
+
+#contactFooter {
+    background-color: #333;
+    color: #fff;
+    height: 100px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Footer content container */
+  .footerContent {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  /* Individual contact info */
+  .contactInfo p {
+    font-size: 14px;
+    color: #ccc;
+    text-align: center;
+    margin: 0 0px;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .footerContent {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .contactInfo p {
+      margin-bottom: 5px;
+    }
+  }
