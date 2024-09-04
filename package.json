@@ -13,7 +13,7 @@
     "dev": "vite",
     "start": "vite",
     "build": "vite build",
-    "serve": "vite preview" 
+    "serve": "vite preview"
   },
   "author": "",
   "license": "ISC"

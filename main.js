@@ -1,5 +1,13 @@
 console.log("The script is executing");
 
+import { addForm } from "./db";
+
+const SERVICE = {
+  BASIC: "Basic",
+  ADVANCED: "Advanced",
+  ULTRA: "Ultra",
+};
+
 document.querySelector("#submitBtn").addEventListener("click", submitForm);
 
 function getFormData() {
@@ -12,9 +20,10 @@ function getFormData() {
   return formData;
 }
 
-function submitForm(event) {
+async function submitForm(event) {
   event.preventDefault();
 
+  const service = SERVICE.ULTRA;
   const formData = getFormData();
-  console.log(formData);
+  await addForm(formData, service);
 }
