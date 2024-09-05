@@ -121,6 +121,31 @@ function showSubmitError() {
   document.getElementById("submitErrorLbl").style.color = ERROR_COLOR;
 }
 
+function showSuccessMessage() {
+  removeAllChildren("app");
+  const msg1 = `Спасибо! <br>Мы свяжемся с вами сразу как только получим для вас точную дату подачи 
+  <br>(не позднее чем следующая пятница)`;
+  const msg2 = `Спасибо! <br>Наши юристы свяжутся с вами в течении 15 минут`;
+  const msg =
+    currentService == SERVICE.BASIC || currentService == SERVICE.ADVANCED
+      ? msg1
+      : msg2;
+  document.getElementById("app").insertAdjacentHTML(
+    "beforeend",
+    `
+    <div id="successMsgPage">
+        <div id="successMsgContainer">
+            <label id="successMsgLbl">${msg}</label>
+            <button id="updPagebtn">Обновить страинцу</button>
+        </div>
+    </div>
+  `
+  );
+  document.getElementById("updPagebtn").addEventListener("click", () => {
+    location.reload();
+  });
+}
+
 async function onSubmitBtn() {
   console.log("submit btn clicked");
 
@@ -130,6 +155,7 @@ async function onSubmitBtn() {
   }
   console.log(data);
   await addForm(data, currentService);
+  showSuccessMessage();
 }
 
 function addFormPageEventListeners() {
@@ -211,6 +237,5 @@ function openFormPage() {
 
 function main() {
   openHomePage();
-  console.log(forms);
 }
 main();
