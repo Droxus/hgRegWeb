@@ -121,7 +121,7 @@ export const forms = {
       inputHelper: "",
     },
   },
-  Advanced: {
+  Ultra: {
     inpol: {
       id: "inpol",
       fieldName: "inpol",
@@ -305,7 +305,7 @@ export const forms = {
       inputHelper: "",
     },
   },
-  Ultra: {
+  Advanced: {
     surname: {
       id: "surname",
       fieldName: "surname",
