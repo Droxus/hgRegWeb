@@ -2,14 +2,23 @@ console.log("The script is executing");
 
 import { addForm } from "./db";
 import { forms } from "./forms";
+import {
+  validateOnlyDigits,
+  validateOnlyText,
+  validateOnlyAllText,
+  validateEmail,
+  validatePhone,
+  validatePassport,
+} from "./validation";
 
 const SERVICE = {
   BASIC: "Basic",
   ADVANCED: "Advanced",
   ULTRA: "Ultra",
+  OTHERS: "Others",
 };
 
-const currentService = SERVICE.BASIC;
+const currentService = SERVICE.OTHERS;
 
 // document.querySelector("#submitBtn").addEventListener("click", submitForm);
 
@@ -45,15 +54,37 @@ function openHomePage() {
   addHomePageEventListeners();
 }
 
+function addClassEventListener(className, type, method) {
+  Array.from(document.getElementsByClassName(className)).forEach((inp) => {
+    inp.addEventListener(type, method);
+  });
+}
+
+function autoResizeTextarea(event) {
+  this.style.height = "auto"; // Reset the height so it doesn't keep growing
+  this.style.height = this.scrollHeight + "px";
+
+  const textarea = event.target;
+  const currentLength = textarea.value.length;
+  const maxChars = textarea.getAttribute("maxlength");
+  const charCount =
+    textarea.parentElement.getElementsByClassName("inputHelper")[0];
+
+  if (currentLength > maxChars) {
+    textarea.value = textarea.value.substring(0, maxChars); // Trim the value to the max length
+  }
+
+  charCount.textContent = `${textarea.value.length}/${maxChars} characters used`;
+}
+
 function addFormPageEventListeners() {
-  // Array.from(document.getElementsByClassName("customInput")).forEach((inp) => {
-  //   inp.addEventListener("input", function (e) {
-  //     const value = e.target.value.toUpperCase();
-  //     const letters = value.substring(0, 2).replace(/[^A-Z]/g, "");
-  //     const numbers = value.substring(2).replace(/[^0-9]/g, "");
-  //     e.target.value = letters + numbers.substring(0, 7);
-  //   });
-  // });
+  addClassEventListener("passport", "input", validatePassport);
+  addClassEventListener("onlyDigits", "input", validateOnlyDigits);
+  addClassEventListener("onlyText", "input", validateOnlyText);
+  addClassEventListener("onlyAllText", "input", validateOnlyAllText);
+  addClassEventListener("phone", "input", validatePhone);
+  addClassEventListener("email", "input", validateEmail);
+  addClassEventListener("textarea", "input", autoResizeTextarea);
 }
 
 function createInput(params) {
@@ -69,19 +100,35 @@ function createInput(params) {
     required,
     inputHelper,
   } = params;
-  return `
+  if (type == "textarea") {
+    return `
     <div class="inputWrapper">
       <label for="customInput" class="inputLabel">${labelName}:</label>
       ${required ? ` <label class="reuiresStart">*</label>` : ""}
-      <input type="${type}" id="${id}" class="inputField ${className}" maxlength="${maxlength}" placeholder="${placeholder}" required>
+      <textarea type="${type}" id="${id}" class="inputField ${className}" fieldName="${fieldName}"
+      minlength="${minlength}" maxlength="${maxlength}" placeholder="${placeholder}" 
+      ${required ? "required" : ""}></textarea>
       <small class="inputHelper">${inputHelper}</small>
       <span class="error inputError">Invalid input. Please check and try again.</span>
     </div>
   `;
+  } else {
+    return `
+      <div class="inputWrapper">
+        <label for="customInput" class="inputLabel">${labelName}:</label>
+        ${required ? ` <label class="reuiresStart">*</label>` : ""}
+        <input type="${type}" id="${id}" class="inputField ${className}" fieldName="${fieldName}"
+        minlength="${minlength}" maxlength="${maxlength}" placeholder="${placeholder}" 
+        ${required ? "required" : ""}>
+        <small class="inputHelper">${inputHelper}</small>
+        <span class="error inputError">Invalid input. Please check and try again.</span>
+      </div>
+    `;
+  }
 }
 
 function showForm() {
-  const thisForm = forms[currentService];
+  const thisForm = forms[currentService] ?? {};
   const formContainer = document.getElementById("formContainer");
   Object.entries(thisForm).forEach(([key, value]) => {
     const input = createInput(value);
@@ -90,8 +137,8 @@ function showForm() {
 }
 
 function openFormPage() {
-  addFormPageEventListeners();
   showForm();
+  addFormPageEventListeners();
 }
 
 function main() {
