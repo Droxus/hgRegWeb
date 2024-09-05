@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     padding: 0px;
     margin: 0px;
 }
@@ -54,7 +54,7 @@ h2 {
 #app {
     background-color: aquamarine;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     padding: 0px;
     margin: 0px;
   }
@@ -62,7 +62,7 @@ h2 {
 #homePage {
     background-color: whitesmoke;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     padding: 0px;
     margin: 0px;
     display: grid;
@@ -249,4 +249,69 @@ h2 {
     .contactInfo p {
       margin-bottom: 5px;
     }
+  }
+
+
+  /* Wrapper for input field and related elements */
+.inputWrapper {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    margin-top: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Label styling */
+  .inputLabel {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Input field styling */
+  .inputField {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  /* Helper text styling */
+  .inputHelper {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+  }
+  
+  /* Error message styling */
+  .error {
+    display: none;
+    font-size: 14px;
+    color: #dc3545; /* Red color for error */
+    margin-top: 10px;
+  }
+
+  .reuiresStart {
+    position: absolute;
+    margin-top: -25px;
+    margin-left: 275px;
+    color: red;
+    font-size: 20px;
+  }
+
+  #formContainer {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0px;
   }
