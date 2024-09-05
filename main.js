@@ -3,6 +3,7 @@ console.log("The script is executing");
 import { addForm } from "./db";
 import { forms } from "./forms";
 import {
+  validateInput,
   validateOnlyDigits,
   validateOnlyText,
   validateOnlyAllText,
@@ -18,39 +19,31 @@ const SERVICE = {
   OTHERS: "Others",
 };
 
-const currentService = SERVICE.OTHERS;
+let currentService = SERVICE.BASIC;
+const ERROR_COLOR = "#dc3545";
 
-// document.querySelector("#submitBtn").addEventListener("click", submitForm);
+function removeAllChildren(divId) {
+  const div = document.getElementById(divId);
 
-// function getFormData() {
-//   const formData = {
-//     name: document.querySelector("#name").value,
-//     email: document.querySelector("#email").value,
-//     message: document.querySelector("#message").value,
-//   };
-
-//   return formData;
-// }
-
-// async function submitForm(event) {
-//   event.preventDefault();
-
-//   const service = SERVICE.ULTRA;
-//   const formData = getFormData();
-//   await addForm(formData, service);
-// }
+  while (div.firstChild) {
+    div.removeChild(div.firstChild);
+  }
+}
 
 function addHomePageEventListeners() {
   Array.from(document.getElementsByClassName("serviceBtns")).forEach((btn) => {
     btn.addEventListener("click", () => {
-      setTimeout(() => {
-        openForm(btn.getAttribute("service-name"));
-      }, 250);
+      const serviceName = btn.getAttribute("service-name");
+      currentService = SERVICE[serviceName];
+      openFormPage();
     });
   });
 }
 
+function showHomePage() {}
+
 function openHomePage() {
+  showHomePage();
   addHomePageEventListeners();
 }
 
@@ -77,6 +70,68 @@ function autoResizeTextarea(event) {
   charCount.textContent = `${textarea.value.length}/${maxChars} characters used`;
 }
 
+function showErrorInput(input) {
+  if (input) {
+    const inputError =
+      input.parentElement.getElementsByClassName("inputError")[0];
+    if (inputError) {
+      console.log("show error");
+      inputError.style.display = "block";
+    }
+    input.style.outline = "1px solid " + ERROR_COLOR;
+    input.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    setTimeout(() => {
+      inputError.style.display = "none";
+      input.style.outline = "none";
+    }, 3000);
+  }
+}
+
+function getFormData() {
+  const thisForm = forms[currentService];
+
+  if (thisForm == undefined) {
+    return undefined;
+  }
+
+  const data = {};
+
+  for (const [key, value] of Object.entries(thisForm)) {
+    const isInputValid = validateInput(value);
+    const input = document.getElementById(value.id);
+
+    if (isInputValid) {
+      data[key] = input.value ?? "";
+    } else {
+      showErrorInput(input);
+      return undefined;
+    }
+  }
+
+  return data;
+}
+
+let formSubmitErrorTimeout;
+function showSubmitError() {
+  clearTimeout(formSubmitErrorTimeout);
+  formSubmitErrorTimeout = setTimeout(() => {
+    document.getElementById("submitErrorLbl").style.color = "transparent";
+  }, 5000);
+  document.getElementById("submitErrorLbl").style.color = ERROR_COLOR;
+}
+
+async function onSubmitBtn() {
+  console.log("submit btn clicked");
+
+  const data = getFormData();
+  if (data == undefined) {
+    showSubmitError();
+  }
+  console.log(data);
+  await addForm(data, currentService);
+}
+
 function addFormPageEventListeners() {
   addClassEventListener("passport", "input", validatePassport);
   addClassEventListener("onlyDigits", "input", validateOnlyDigits);
@@ -85,6 +140,7 @@ function addFormPageEventListeners() {
   addClassEventListener("phone", "input", validatePhone);
   addClassEventListener("email", "input", validateEmail);
   addClassEventListener("textarea", "input", autoResizeTextarea);
+  document.getElementById("submitBtn").addEventListener("click", onSubmitBtn);
 }
 
 function createInput(params) {
@@ -128,12 +184,24 @@ function createInput(params) {
 }
 
 function showForm() {
+  removeAllChildren("app");
+  document
+    .getElementById("app")
+    .insertAdjacentHTML("beforeend", `<div id="formContainer"></div>`);
+
   const thisForm = forms[currentService] ?? {};
   const formContainer = document.getElementById("formContainer");
   Object.entries(thisForm).forEach(([key, value]) => {
     const input = createInput(value);
     formContainer.insertAdjacentHTML("beforeend", input);
   });
+
+  formContainer.insertAdjacentHTML(
+    "beforeend",
+    `
+    <label id="submitErrorLbl">The form cannot be submitted with invalid data</label>
+     <button id="submitBtn">Submit</button>`
+  );
 }
 
 function openFormPage() {
@@ -142,8 +210,7 @@ function openFormPage() {
 }
 
 function main() {
-  // openHomePage();
-  openFormPage();
+  openHomePage();
   console.log(forms);
 }
 main();

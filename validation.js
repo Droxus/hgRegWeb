@@ -1,13 +1,20 @@
 // Function to prevent invalid characters and enforce maxlength
-export function validateInput(event, regex, maxLength) {
-  const input = event.target;
-  const value = input.value;
+export function validateInput(input) {
+  const thisInput = document.getElementById(input.id);
+  const value = thisInput.value;
+  const valueLength = value.length;
+  const maxLength = Number(input.maxlength);
+  const minLength = Number(input.minlength);
+  const isRequired = input.required;
+  if (!isRequired) {
+    return true;
+  }
 
-  // Replace invalid characters based on regex
-  const validValue = value.replace(regex, "");
-
-  // Check if the value exceeds the maxlength
-  input.value = validValue.slice(0, maxLength);
+  if (valueLength >= minLength && valueLength <= maxLength) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 export function validateOnlyDigits(event) {
