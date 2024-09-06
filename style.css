@@ -239,8 +239,14 @@ h2 {
     padding-top: 20px;
 }
 
-
-
+#formPageHeader {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
 
 #contactFooter {
     background-color: #333;
@@ -424,4 +430,62 @@ h2 {
     width: 200px;
     height: 50px;
     border-radius: 10px;
+}
+
+#formPageHeader {
+  width: 300px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#formHeaderGoBackBtn {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  border: none; /* Remove borders */
+  padding: 10px 20px; /* Some padding */
+  text-align: center; /* Center text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Get the button to respect width/height */
+  font-size: 16px; /* Increase font size */
+  margin: 10px 2px; /* Some margin */
+  cursor: pointer; /* Pointer/hand icon on hover */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+  margin-top: 40px;
+}
+
+#formHeaderGoBackBtn:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: translateY(-2px); /* Slightly lift button on hover */
+}
+
+#formHeaderGoBackBtn:active {
+  background-color: #3e8e41; /* Even darker green when pressed */
+  transform: translateY(2px); /* Button sinks when clicked */
+}
+
+#formHeaderGoBackBtn:focus {
+  outline: none; /* Remove outline on focus */
+  box-shadow: 0 0 5px #4CAF50; /* Green glow on focus */
+}
+
+#formHeaderServiceNameLbl {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+}
+
+#formHeaderExplanationLbl {
+  display: block;
+  font-size: 16px;
+  color: #666;
+  margin-top: 5px;
 }

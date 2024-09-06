@@ -23,6 +23,37 @@ const SERVICE = {
 let currentService = SERVICE.BASIC;
 const ERROR_COLOR = "#dc3545";
 
+const servicesDictionary = {
+  Basic: "Временный побыт<br>Только запись",
+  Advanced: "Временный побыт<br>Запись и Заполнение внесков",
+  Ultra: "Временный побыт<br>Полное сопровождение вашего дела",
+  Others: "Другие услуги",
+};
+
+const serviceDescription = {
+  Basic: `Оплата осуществляется только после получения 
+точной даты регистрации - не позднея чем следующая пятница целью записи 
+вас на подачу документов на временный побыт в Варшаве просим вас ответить
+  на несколько вопросов`,
+  Advanced: `Что такое внески - для регистрации на временный побыт
+  требуются номера inPol и MOS. <br>
+Если у вас их нет или вы этого не знаете, мы вам поможем 
+<br>Оплата осуществляется только после получения точной даты регистрации - 
+не позднея чем следующая пятница
+целью заполнения внесков и записи вас на подачу документов на временный побыт в Варшаве просим вас 
+ответить на несколько вопросов`,
+  Ultra: `Полное сопровождение, помощь во всех вопросах и на всех этапах 
+<br>Чтобы наши специалисты могли лучше разобратся в вашем случае и определить 
+для вас оптимальную цену - просьба оставить свои контактные данные отвечая на вопросы внизу. 
+Наши специалисты связутся с вами в течении 15 минут`,
+  Others: `Стоимость зависит от конкретной услуги
+Примеры дополнительных услуг: <br>
+- Открытие/Закрытие компании <br> - Получение номера Песель в удаленном 
+режиме <br> - Замена водительских прав
+<br> - Регистрация автомобиля <br> - Апелляция 
+и возврат средств и т.д. и т.п.`,
+};
+
 function removeAllChildren(divId) {
   const div = document.getElementById(divId);
 
@@ -211,12 +242,31 @@ function createInput(params) {
   }
 }
 
+function addFormHeader() {
+  const formContainer = document.getElementById("formContainer");
+  const header = `
+  <header>
+    <div id="formPageHeader">
+      <img src="icon.svg" alt="icon">
+      <label id="formHeaderServiceNameLbl">${servicesDictionary[currentService]}</label>
+      <label id="formHeaderExplanationLbl">${serviceDescription[currentService]}</label>
+      <div id="formHeaderBtnsBlock">
+        <button id="formHeaderGoBackBtn">Выбрать другую услугу</button>
+      </div>
+    </div>
+  </header>
+  `;
+
+  formContainer.insertAdjacentHTML("beforeend", header);
+}
+
 function showForm() {
   removeAllChildren("app");
   document
     .getElementById("app")
     .insertAdjacentHTML("beforeend", `<div id="formContainer"></div>`);
 
+  addFormHeader();
   const thisForm = forms[currentService] ?? {};
   const formContainer = document.getElementById("formContainer");
   Object.entries(thisForm).forEach(([key, value]) => {
@@ -228,8 +278,14 @@ function showForm() {
     "beforeend",
     `
     <label id="submitErrorLbl">The form cannot be submitted with invalid data</label>
-     <button id="submitBtn">Submit</button>`
+     <button id="submitBtn">Отправить</button>`
   );
+
+  document
+    .getElementById("formHeaderGoBackBtn")
+    .addEventListener("click", () => {
+      location.reload();
+    });
 }
 
 function openFormPage() {
