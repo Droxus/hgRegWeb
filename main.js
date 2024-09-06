@@ -247,7 +247,7 @@ function addFormHeader() {
   const header = `
   <header>
     <div id="formPageHeader">
-      <img src="icon.svg" alt="icon">
+      <div class="iconLogotype"></div>
       <label id="formHeaderServiceNameLbl">${servicesDictionary[currentService]}</label>
       <label id="formHeaderExplanationLbl">${serviceDescription[currentService]}</label>
       <div id="formHeaderBtnsBlock">

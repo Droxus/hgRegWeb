@@ -489,3 +489,12 @@ h2 {
   color: #666;
   margin-top: 5px;
 }
+
+.iconLogotype {
+  width: 119px; /* Adjust the width as needed */
+  height: 114px; /* Adjust the height as needed */
+  background-image: url('./icon.svg'); /* Path to your image */
+  background-size: cover; /* Ensures the image covers the container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents repeating the image */
+}
