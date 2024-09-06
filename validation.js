@@ -102,3 +102,9 @@ export function validateEmail(event) {
     error.style.display = "none";
   }
 }
+
+export function validateDate(event) {
+  if (event.target.value.length > 10) {
+    event.target.value = event.target.value.slice(-10);
+  }
+}
