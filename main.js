@@ -197,6 +197,7 @@ function addFormPageEventListeners() {
   addClassEventListener("onlyAllText", "input", validateOnlyAllText);
   addClassEventListener("phone", "input", validatePhone);
   addClassEventListener("email", "input", validateEmail);
+  addClassEventListener("date", "keydown", validateDate);
   addClassEventListener("date", "input", validateDate);
   addClassEventListener("textarea", "input", autoResizeTextarea);
   document.getElementById("submitBtn").addEventListener("click", onSubmitBtn);

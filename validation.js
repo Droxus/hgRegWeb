@@ -104,7 +104,11 @@ export function validateEmail(event) {
 }
 
 export function validateDate(event) {
-  if (event.target.value.length > 10) {
-    event.target.value = event.target.value.slice(-10);
+  const maxYear = 3000;
+  const value = event.target.value;
+  const splittedDate = value.split("-");
+  const year = Number(splittedDate[0]);
+  if (!isNaN(year) && year !== 0 && year > maxYear) {
+    event.target.value = String(maxYear) + value.slice(-6);
   }
 }
