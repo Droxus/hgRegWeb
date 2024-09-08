@@ -105,7 +105,7 @@ export const forms = {
       placeholder: "adres@gmail.com",
       maxlength: 32,
       minlength: 2,
-      required: true,
+      required: false,
       inputHelper: "Для связи с нами",
     },
     source: {
@@ -122,30 +122,6 @@ export const forms = {
     },
   },
   Ultra: {
-    inpol: {
-      id: "inpol",
-      fieldName: "inpol",
-      type: "number",
-      className: "onlyDigits",
-      labelName: "Номер внеска на inPol",
-      placeholder: "00641410",
-      maxlength: 8,
-      minlength: 8,
-      required: false,
-      inputHelper: "Находится на заполненом внеске рядом со штрих кодом",
-    },
-    mos: {
-      id: "mos",
-      fieldName: "mos",
-      type: "number",
-      className: "onlyDigits",
-      labelName: "Номер внеска на MOS",
-      placeholder: "42354528",
-      maxlength: 8,
-      minlength: 8,
-      required: false,
-      inputHelper: "Находится на заполненом внеске рядом со штрих кодом",
-    },
     name: {
       id: "name",
       fieldName: "name",
@@ -179,7 +155,7 @@ export const forms = {
       placeholder: "Poland",
       maxlength: 32,
       minlength: 2,
-      required: false,
+      required: true,
       inputHelper: "Как в загранпаспорте (Латинскими буквами)",
     },
     birthday: {
@@ -253,7 +229,7 @@ export const forms = {
       placeholder: "Alexey",
       maxlength: 32,
       minlength: 2,
-      required: false,
+      required: true,
       inputHelper: "Как в загранпаспорте (Латинскими буквами)",
     },
     surname: {
@@ -265,7 +241,7 @@ export const forms = {
       placeholder: "Rzayev",
       maxlength: 32,
       minlength: 2,
-      required: false,
+      required: true,
       inputHelper: "Как в загранпаспорте (Латинскими буквами)",
     },
     phone: {
@@ -277,7 +253,7 @@ export const forms = {
       placeholder: "+48579137807",
       maxlength: 12,
       minlength: 12,
-      required: false,
+      required: true,
       inputHelper: "Для связи с нами",
     },
     email: {
@@ -291,6 +267,18 @@ export const forms = {
       minlength: 2,
       required: false,
       inputHelper: "Для связи с нами",
+    },
+    interests: {
+      id: "interests",
+      fieldName: "interests",
+      type: "textarea",
+      className: "textarea",
+      labelName: "В нескольких словах опишите что конкретно вас интересует",
+      placeholder: "",
+      maxlength: 500,
+      minlength: 0,
+      required: false,
+      inputHelper: "",
     },
     source: {
       id: "source",
@@ -327,7 +315,7 @@ export const forms = {
       placeholder: "Rzayev",
       maxlength: 32,
       minlength: 2,
-      required: true,
+      required: false,
       inputHelper: "(Латинскими буквами)",
     },
     name: {
@@ -567,7 +555,7 @@ export const forms = {
       placeholder: "",
       maxlength: 64,
       minlength: 2,
-      required: true,
+      required: false,
       inputHelper: "Работа/учета/воссоедение с семьей и т.д.",
     },
     familyInfo: {
@@ -592,7 +580,7 @@ export const forms = {
       placeholder: "",
       maxlength: 32,
       minlength: 2,
-      required: true,
+      required: false,
       inputHelper: "",
     },
     lastEnteranceDate: {
@@ -604,7 +592,7 @@ export const forms = {
       placeholder: "",
       maxlength: 32,
       minlength: 2,
-      required: true,
+      required: false,
       inputHelper: "",
     },
     reasonOfEnterance: {
@@ -616,7 +604,7 @@ export const forms = {
       placeholder: "",
       maxlength: 64,
       minlength: 2,
-      required: true,
+      required: false,
       inputHelper: "Виза, биометрия и т.д.",
     },
     countriesVisitHistory: {
@@ -628,7 +616,7 @@ export const forms = {
       placeholder: "",
       maxlength: 250,
       minlength: 2,
-      required: true,
+      required: false,
       inputHelper: "",
     },
     income: {
@@ -640,7 +628,7 @@ export const forms = {
       placeholder: "",
       maxlength: 64,
       minlength: 2,
-      required: false,
+      required: true,
       inputHelper: "",
     },
     passport: {

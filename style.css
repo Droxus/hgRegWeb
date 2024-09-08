@@ -38,6 +38,8 @@ h2 {
     border: 1px solid #ccc;
     border-radius: 4px;
     transition: 1s;
+    resize: vertical;
+    overflow: auto;
 }
 
 .form-group input[type="submit"] {
@@ -316,6 +318,7 @@ h2 {
     font-size: 16px;
     outline: none;
     transition: border-color 0.3s;
+    resize: vertical;
   }
   
   /* Helper text styling */

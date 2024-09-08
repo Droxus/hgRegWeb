@@ -58,7 +58,7 @@ export function validateOnlyText(event) {
 
 export function validatePassport(event) {
   const value = event.target.value.toUpperCase();
-  const letters = value.substring(0, 2).replace(/[^A-Z]/g, "");
+  const letters = value.substring(0, 2).replace(/[^A-Z0-9]/g, "");
   const numbers = value.substring(2).replace(/[^0-9]/g, "");
   event.target.value = letters + numbers.substring(0, 7);
 }
