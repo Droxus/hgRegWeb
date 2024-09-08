@@ -32,4 +32,12 @@ export async function addForm(formData, service) {
   const docRef = await addDoc(thisCollection, formData);
 
   console.log("Document written with ID: ", docRef.id);
+
+  if (service == "Ultra") {
+    sendEmail();
+  }
+}
+
+function sendEmail() {
+  console.log("Email sent");
 }
