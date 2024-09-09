@@ -1,5 +1,3 @@
-console.log("The script is executing");
-
 import { addForm } from "./db";
 import { forms } from "./forms";
 import {
@@ -12,50 +10,15 @@ import {
   validatePassport,
   validateDate,
 } from "./validation";
-
-const SERVICE = {
-  BASIC: "Basic",
-  ADVANCED: "Advanced",
-  ULTRA: "Ultra",
-  OTHERS: "Others",
-};
+import { HtmlBlocks, SERVICE } from "./htmlBlocks";
 
 let currentService = SERVICE.BASIC;
 const ERROR_COLOR = "#dc3545";
+const body = document.getElementsByTagName("body")[0];
+const LINK = "https://t.me/+tbPfmAesDdBmYjEy";
 
-const servicesDictionary = {
-  Basic: "Временный побыт<br>Только запись",
-  Advanced: "Временный побыт<br>Запись и Заполнение внесков",
-  Ultra: "Временный побыт<br>Полное сопровождение вашего дела",
-  Others: "Другие услуги",
-};
-
-const serviceDescription = {
-  Basic: `Оплата осуществляется только после получения 
-точной даты регистрации - не позднея чем следующая пятница целью записи 
-вас на подачу документов на временный побыт в Варшаве просим вас ответить
-  на несколько вопросов.`,
-  Advanced: `Что такое внески - для регистрации на временный побыт
-  требуются номера inPol и MOS. <br>
-Если у вас их нет или вы этого не знаете, мы вам поможем 
-<br>Оплата осуществляется только после получения точной даты регистрации - 
-не позднея чем следующая пятница
-целью заполнения внесков и записи вас на подачу документов на временный побыт в Варшаве просим вас 
-ответить на несколько вопросов.`,
-  Ultra: `Полное сопровождение, помощь во всех вопросах и на всех этапах 
-<br>Чтобы наши специалисты могли лучше разобратся в вашем случае и определить 
-для вас оптимальную цену - просьба оставить свои контактные данные отвечая на вопросы внизу. 
-Наши специалисты связутся с вами в течении 15 минут.`,
-  Others: `Стоимость зависит от конкретной услуги.
-<br>Примеры дополнительных услуг: <br>
-- Открытие/Закрытие компании <br> - Получение номера Песель в удаленном 
-режиме <br> - Замена водительских прав
-<br> - Регистрация автомобиля <br> - Апелляция 
-и возврат средств и т.д. и т.п.`,
-};
-
-function removeAllChildren(divId) {
-  const div = document.getElementById(divId);
+function removeAllChildren(selector) {
+  const div = document.querySelector(selector);
 
   while (div.firstChild) {
     div.removeChild(div.firstChild);
@@ -70,30 +33,43 @@ function addHomePageEventListeners() {
       openFormPage();
     });
   });
-  document
-    .getElementById("openChatWithUsBtn")
-    .addEventListener("click", function () {
-      window.open("https://t.me/+tbPfmAesDdBmYjEy", "_blank");
-    });
+  addElEventListener("#openChatWithUsBtn", "click", () =>
+    window.open(LINK, "_blank")
+  );
+}
+
+function addHtmlBlock(parentEl, htmlBlock, position = "beforeend") {
+  document.querySelector(parentEl).insertAdjacentHTML(position, htmlBlock);
 }
 
 function showHomePage() {
-  document.getElementsByTagName("body")[0].style.backgroundColor = "#7370a0";
+  removeAllChildren("#app");
+  body.style.backgroundColor = "#7370a0";
+
+  addHtmlBlock("#app", HtmlBlocks.getHomePage());
+  addHtmlBlock("#homePage", HtmlBlocks.getHomePageHeader());
+  addHtmlBlock("#homePage", HtmlBlocks.getHomePageMain());
+  addHtmlBlock("#homePage", HtmlBlocks.getHomePageFooter());
 }
 
 function openHomePage() {
   showHomePage();
   addHomePageEventListeners();
+  window.scrollTo(0, 0);
+}
+
+function addElEventListener(selector, type, method) {
+  document.querySelector(selector).addEventListener(type, method);
 }
 
 function addClassEventListener(className, type, method) {
-  Array.from(document.getElementsByClassName(className)).forEach((inp) => {
-    inp.addEventListener(type, method);
+  Array.from(document.getElementsByClassName(className)).forEach((el) => {
+    el.addEventListener(type, method);
   });
 }
 
 function autoResizeTextarea(event) {
-  this.style.height = "auto"; // Reset the height so it doesn't keep growing
+  this.style.height = "auto";
   this.style.height = this.scrollHeight + "px";
 
   const textarea = event.target;
@@ -103,7 +79,7 @@ function autoResizeTextarea(event) {
     textarea.parentElement.getElementsByClassName("inputHelper")[0];
 
   if (currentLength > maxChars) {
-    textarea.value = textarea.value.substring(0, maxChars); // Trim the value to the max length
+    textarea.value = textarea.value.substring(0, maxChars);
   }
 
   charCount.textContent = `${textarea.value.length}/${maxChars} characters used`;
@@ -161,28 +137,13 @@ function showSubmitError() {
 }
 
 function showSuccessMessage() {
-  removeAllChildren("app");
-  const msg1 = `Спасибо! <br>Мы свяжемся с вами сразу как только получим для вас точную дату подачи 
-  <br>(не позднее чем следующая пятница)`;
-  const msg2 = `Спасибо! <br>Наши юристы свяжутся с вами в течении 15 минут`;
+  removeAllChildren("#app");
   const msg =
     currentService == SERVICE.BASIC || currentService == SERVICE.ADVANCED
-      ? msg1
-      : msg2;
-  document.getElementById("app").insertAdjacentHTML(
-    "beforeend",
-    `
-    <div id="successMsgPage">
-        <div id="successMsgContainer">
-            <label id="successMsgLbl">${msg}</label>
-            <button id="updPagebtn">Обновить страинцу</button>
-        </div>
-    </div>
-  `
-  );
-  document.getElementById("updPagebtn").addEventListener("click", () => {
-    location.reload();
-  });
+      ? HtmlBlocks.getDefaultSuccessMessage()
+      : HtmlBlocks.getAdvancedSuccessMessage();
+  addHtmlBlock("#app", HtmlBlocks.getSuccessMsgPage(msg));
+  addElEventListener("#updPagebtn", "click", () => location.reload());
 }
 
 async function onSubmitBtn() {
@@ -192,7 +153,7 @@ async function onSubmitBtn() {
   if (data == undefined) {
     return showSubmitError();
   }
-  console.log(data);
+
   await addForm(data, currentService);
   showSuccessMessage();
 }
@@ -207,94 +168,25 @@ function addFormPageEventListeners() {
   addClassEventListener("date", "keydown", validateDate);
   addClassEventListener("date", "input", validateDate);
   addClassEventListener("textarea", "input", autoResizeTextarea);
-  document.getElementById("submitBtn").addEventListener("click", onSubmitBtn);
-}
-
-function createInput(params) {
-  const {
-    id,
-    fieldName,
-    type,
-    className,
-    labelName,
-    placeholder,
-    maxlength,
-    minlength,
-    required,
-    inputHelper,
-  } = params;
-  if (type == "textarea") {
-    return `
-    <div class="inputWrapper">
-      <label for="customInput" class="inputLabel">${labelName}:</label>
-      ${required ? ` <label class="reuiresStart">*</label>` : ""}
-      <textarea type="${type}" id="${id}" class="inputField ${className}" fieldName="${fieldName}"
-      minlength="${minlength}" maxlength="${maxlength}" placeholder="${placeholder}" 
-      ${required ? "required" : ""}></textarea>
-      <small class="inputHelper">${inputHelper}</small>
-      <span class="error inputError">Invalid input. Please check and try again.</span>
-    </div>
-  `;
-  } else {
-    return `
-      <div class="inputWrapper">
-        <label for="customInput" class="inputLabel">${labelName}:</label>
-        ${required ? ` <label class="reuiresStart">*</label>` : ""}
-        <input type="${type}" id="${id}" class="inputField ${className}" fieldName="${fieldName}"
-        minlength="${minlength}" maxlength="${maxlength}" placeholder="${placeholder}" 
-        ${required ? "required" : ""}>
-        <small class="inputHelper">${inputHelper}</small>
-        <span class="error inputError">Invalid input. Please check and try again.</span>
-      </div>
-    `;
-  }
-}
-
-function addFormHeader() {
-  const formContainer = document.getElementById("formContainer");
-  const header = `
-  <header>
-    <div id="formPageHeader">
-      <div class="iconLogotype"></div>
-      <label id="formHeaderServiceNameLbl">${servicesDictionary[currentService]}</label>
-      <label id="formHeaderExplanationLbl">${serviceDescription[currentService]}</label>
-      <div id="formHeaderBtnsBlock">
-        <button id="formHeaderGoBackBtn">Выбрать другую услугу</button>
-      </div>
-    </div>
-  </header>
-  `;
-
-  formContainer.insertAdjacentHTML("beforeend", header);
+  addElEventListener("#submitBtn", "click", onSubmitBtn);
 }
 
 function showForm() {
-  document.getElementsByTagName("body")[0].style.backgroundColor = "aquamarine";
-  removeAllChildren("app");
-  document
-    .getElementById("app")
-    .insertAdjacentHTML("beforeend", `<div id="formContainer"></div>`);
+  removeAllChildren("#app");
+  body.style.backgroundColor = "aquamarine";
 
-  addFormHeader();
+  addHtmlBlock("#app", HtmlBlocks.getFormContainer());
+  addHtmlBlock("#formContainer", HtmlBlocks.getFormHeader(currentService));
+
   const thisForm = forms[currentService] ?? {};
-  const formContainer = document.getElementById("formContainer");
-  Object.entries(thisForm).forEach(([key, value]) => {
-    const input = createInput(value);
-    formContainer.insertAdjacentHTML("beforeend", input);
-  });
 
-  formContainer.insertAdjacentHTML(
-    "beforeend",
-    `
-    <label id="submitErrorLbl">The form cannot be submitted with invalid data</label>
-     <button id="submitBtn">Отправить</button>`
+  Object.entries(thisForm).forEach(([key, value]) =>
+    addHtmlBlock("#formContainer", HtmlBlocks.getFormInput(value))
   );
 
-  document
-    .getElementById("formHeaderGoBackBtn")
-    .addEventListener("click", () => {
-      location.reload();
-    });
+  addHtmlBlock("#formContainer", HtmlBlocks.getSubmit());
+  addElEventListener("#formHeaderGoBackBtn", "click", openHomePage);
+  window.scrollTo(0, 0);
 }
 
 function openFormPage() {
