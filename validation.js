@@ -108,6 +108,7 @@ export function validateDate(event) {
   const value = event.target.value;
   const splittedDate = value.split("-");
   const year = Number(splittedDate[0]);
+  console.log(value);
   if (!isNaN(year) && year !== 0 && year > maxYear) {
     event.target.value = String(maxYear) + value.slice(-6);
   }

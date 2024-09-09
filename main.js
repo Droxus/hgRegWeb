@@ -34,18 +34,18 @@ const serviceDescription = {
   Basic: `Оплата осуществляется только после получения 
 точной даты регистрации - не позднея чем следующая пятница целью записи 
 вас на подачу документов на временный побыт в Варшаве просим вас ответить
-  на несколько вопросов`,
+  на несколько вопросов.`,
   Advanced: `Что такое внески - для регистрации на временный побыт
   требуются номера inPol и MOS. <br>
 Если у вас их нет или вы этого не знаете, мы вам поможем 
 <br>Оплата осуществляется только после получения точной даты регистрации - 
 не позднея чем следующая пятница
 целью заполнения внесков и записи вас на подачу документов на временный побыт в Варшаве просим вас 
-ответить на несколько вопросов`,
+ответить на несколько вопросов.`,
   Ultra: `Полное сопровождение, помощь во всех вопросах и на всех этапах 
 <br>Чтобы наши специалисты могли лучше разобратся в вашем случае и определить 
 для вас оптимальную цену - просьба оставить свои контактные данные отвечая на вопросы внизу. 
-Наши специалисты связутся с вами в течении 15 минут`,
+Наши специалисты связутся с вами в течении 15 минут.`,
   Others: `Стоимость зависит от конкретной услуги.
 <br>Примеры дополнительных услуг: <br>
 - Открытие/Закрытие компании <br> - Получение номера Песель в удаленном 
@@ -73,11 +73,13 @@ function addHomePageEventListeners() {
   document
     .getElementById("openChatWithUsBtn")
     .addEventListener("click", function () {
-      window.open("https://www.example.com", "_blank");
+      window.open("https://t.me/+tbPfmAesDdBmYjEy", "_blank");
     });
 }
 
-function showHomePage() {}
+function showHomePage() {
+  document.getElementsByTagName("body")[0].style.backgroundColor = "#7370a0";
+}
 
 function openHomePage() {
   showHomePage();
@@ -188,7 +190,7 @@ async function onSubmitBtn() {
 
   const data = getFormData();
   if (data == undefined) {
-    showSubmitError();
+    return showSubmitError();
   }
   console.log(data);
   await addForm(data, currentService);
@@ -267,6 +269,7 @@ function addFormHeader() {
 }
 
 function showForm() {
+  document.getElementsByTagName("body")[0].style.backgroundColor = "aquamarine";
   removeAllChildren("app");
   document
     .getElementById("app")

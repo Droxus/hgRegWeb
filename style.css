@@ -499,15 +499,6 @@ h2 {
   margin-top: 5px;
 }
 
-.iconLogotype {
-  width: 119px; /* Adjust the width as needed */
-  height: 114px; /* Adjust the height as needed */
-  background-image: url('./icon.svg'); /* Path to your image */
-  background-size: cover; /* Ensures the image covers the container */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents repeating the image */
-}
-
 #openChatWithUsBtn {
   background-color: #4c4c4c; /* Green background */
   color: white; /* White text */
@@ -536,4 +527,40 @@ h2 {
 #openChatWithUsBtn:focus {
   outline: none; /* Remove outline on focus */
   box-shadow: 0 0 5px #565656; /* Green glow on focus */
+}
+
+@media (min-width: 768px) {
+  #formPageHeader {
+    width: 600px;
+  }
+  .inputWrapper {
+    width: 600px;
+  }
+  .reuiresStart {
+    margin-left: 570px;
+  }
+  .inputField {
+    width: 570px;
+  }
+  #submitBtn {
+    width: 640px;
+  }
+}
+
+@media (max-width: 768px) {
+  #formPageHeader {
+    width: 300px;
+  }
+  .inputWrapper {
+    width: 300px;
+  }
+  .reuiresStart {
+    margin-left: 275px;
+  }
+  .inputField {
+    width: 270px;
+  }
+  #submitBtn {
+    width: 340px;
+  }
 }
