@@ -1,13 +1,6 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBwTbTG_auMrWy_e4aVUFMHs3794zZ4AXE",
   authDomain: "hgregusersdb.firebaseapp.com",
@@ -18,26 +11,27 @@ const firebaseConfig = {
   measurementId: "G-LMF2MVSGER",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 const analytics = getAnalytics(app);
 
 export async function addForm(formData, service) {
-  console.log("Hello world!");
+  formData = Object.assign({}, formData, { service: service });
   console.log(formData);
+  const url = "https://hg-registration-bot-cd9ed03a6bc5.herokuapp.com/submit";
 
-  const path = `Data/Services/${service}/`;
-  const thisCollection = collection(db, path);
-  const docRef = await addDoc(thisCollection, formData);
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
 
-  console.log("Document written with ID: ", docRef.id);
+  const data = await response.json();
 
-  if (service == "Ultra") {
-    sendEmail();
+  if (response.ok) {
+    console.log("Data saved successfully:", data);
+  } else {
+    console.error("Failed to save data:", data);
   }
-}
-
-function sendEmail() {
-  console.log("Email sent");
 }
