@@ -16,7 +16,6 @@ const analytics = getAnalytics(app);
 
 export async function addForm(formData, service) {
   formData = Object.assign({}, formData, { service: service });
-  console.log(formData);
   const url = "https://hg-registration-bot-cd9ed03a6bc5.herokuapp.com/submit";
 
   const response = await fetch(url, {
