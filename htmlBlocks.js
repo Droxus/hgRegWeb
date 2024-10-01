@@ -107,7 +107,7 @@ export const HtmlBlocks = {
             ${required ? "required" : ""}></textarea>`
               : `<input type="${type}" id="${id}" class="inputField ${className}" fieldName="${fieldName}"
             minlength="${minlength}" maxlength="${maxlength}" placeholder="${placeholder}" 
-            ${required ? "required" : ""}`
+            ${required ? "required" : ""}/>`
           }
         <small class="inputHelper">${inputHelper}</small>
         <span class="error inputError">Invalid input. Please check and try again.</span>
@@ -151,9 +151,9 @@ export const HtmlBlocks = {
     `;
   },
   getDefaultSuccessMessage: () => {
-    return `Спасибо! <br>Мы свяжемся с вами сразу как только получим для вас точную дату подачи<br>(не позднее чем следующая пятница)`;
+    return `Спасибо! <br>Ваш заказ принят, дата записи будет известна не позднее следующей пятницы. Данные подачи будут отправлены  вам на ваш адрес имейл вместе с фактурой для оплаты.`;
   },
   getAdvancedSuccessMessage: () => {
-    return `Спасибо!<br>Наши юристы свяжутся с вами в течении 15 минут`;
+    return `Спасибо!<br>Ваш заказ принят, дата записи будет известна не позднее следующей пятницы. Данные подачи будут отправлены  вам на ваш адрес имейл вместе с фактурой для оплаты.<br>Наши юристы свяжутся с вами в течении 15 минут.`;
   },
 };

@@ -94,7 +94,7 @@ export const forms = {
       maxlength: 16,
       minlength: 10,
       required: true,
-      inputHelper: "Для связи с нами",
+      inputHelper: "Для получения точной даты регистрации и фактуры для оплаты",
     },
     email: {
       id: "email",
@@ -105,8 +105,8 @@ export const forms = {
       placeholder: "adres@gmail.com",
       maxlength: 32,
       minlength: 2,
-      required: false,
-      inputHelper: "Для связи с нами",
+      required: true,
+      inputHelper: "Для получения точной даты регистрации и фактуры для оплаты",
     },
     source: {
       id: "source",
@@ -192,7 +192,7 @@ export const forms = {
       maxlength: 16,
       minlength: 10,
       required: true,
-      inputHelper: "Для связи с нами",
+      inputHelper: "Для получения точной даты регистрации и фактуры для оплаты",
     },
     email: {
       id: "email",
@@ -203,8 +203,8 @@ export const forms = {
       placeholder: "adres@gmail.com",
       maxlength: 32,
       minlength: 2,
-      required: false,
-      inputHelper: "Для связи с нами",
+      required: true,
+      inputHelper: "Для получения точной даты регистрации и фактуры для оплаты",
     },
     source: {
       id: "source",
@@ -254,7 +254,7 @@ export const forms = {
       maxlength: 16,
       minlength: 10,
       required: true,
-      inputHelper: "Для связи с нами",
+      inputHelper: "Для получения точной даты регистрации и фактуры для оплаты",
     },
     email: {
       id: "email",
@@ -265,8 +265,8 @@ export const forms = {
       placeholder: "adres@gmail.com",
       maxlength: 32,
       minlength: 2,
-      required: false,
-      inputHelper: "Для связи с нами",
+      required: true,
+      inputHelper: "Для получения точной даты регистрации и фактуры для оплаты",
     },
     interests: {
       id: "interests",
@@ -531,7 +531,7 @@ export const forms = {
       placeholder: "adres@gmail.com",
       maxlength: 32,
       minlength: 2,
-      required: false,
+      required: true,
       inputHelper: "",
     },
     address: {
