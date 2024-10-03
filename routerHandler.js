@@ -1,4 +1,5 @@
 console.log("Hello router handler!");
+
 function addHtml() {
   // Create a div to show the cancellation message
   const messageDiv = document.createElement("div");
@@ -26,8 +27,13 @@ async function sendReq(orderId) {
 
   if (response.ok) {
     console.log("Data saved successfully:", data);
+    document.getElementById(
+      "message"
+    ).innerText = `Order ${orderId} has been sent for cancellation.`;
   } else {
     console.error("Failed to save data:", data);
+    document.getElementById("message").innerText =
+      "Failed to cancel the order.";
   }
 }
 
@@ -41,23 +47,20 @@ function cancelOrderRequest() {
   // Get the current URL
   const currentUrl = window.location.href;
 
-  // Extract the part after '=' (since no key is provided, it's just the value)
-  const orderId = currentUrl.split("=")[1]; // Split by '=' and take the second part
+  // Extract the orderId parameter from the URL
+  const orderId = new URLSearchParams(window.location.search).get(
+    "cancelOrderId"
+  ); // Change 'cancelOrderId' to the actual parameter name
   console.log(orderId);
 
   if (orderId) {
-    // Call the mock sendReq function with the orderId
+    // Call the sendReq function with the orderId
     sendReq(orderId);
-
-    // Show a success message in the dynamically added HTML
-    document.getElementById(
-      "message"
-    ).innerText = `Order ${orderId} has been sent for cancellation.`;
   } else {
     console.error("Order ID not found in the URL");
-
-    // Show error message if orderId is missing
     document.getElementById("message").innerText = "Order ID not found.";
   }
 }
+
+// Run the cancelOrderRequest function
 cancelOrderRequest();
