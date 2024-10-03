@@ -1,3 +1,4 @@
+console.log("Hello router handler!");
 function addHtml() {
   // Create a div to show the cancellation message
   const messageDiv = document.createElement("div");
