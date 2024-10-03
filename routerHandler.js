@@ -1,66 +1,58 @@
 console.log("Hello router handler!");
 
-function addHtml() {
+// Function to add a message div to the page
+function addHtml(message) {
   // Create a div to show the cancellation message
   const messageDiv = document.createElement("div");
   messageDiv.id = "message";
-  messageDiv.innerText = "Processing your cancellation..."; // Initial message
+  messageDiv.innerText = message; // Set initial message
   document.body.appendChild(messageDiv); // Add the div to the page
 }
 
+// Function to send the cancellation request
 async function sendReq(orderId) {
   console.log(`Order ${orderId} is being canceled.`);
 
-  // The actual request logic
   const url =
     "https://hg-registration-bot-cd9ed03a6bc5.herokuapp.com/cancelorder";
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ orderId: orderId }),
-  });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ orderId: orderId }),
+    });
 
-  const data = await response.json();
+    const data = await response.json();
 
-  if (response.ok) {
-    console.log("Data saved successfully:", data);
-    document.getElementById(
-      "message"
-    ).innerText = `Order ${orderId} has been sent for cancellation.`;
-  } else {
-    console.error("Failed to save data:", data);
-    document.getElementById("message").innerText =
-      "Failed to cancel the order.";
+    if (response.ok) {
+      console.log("Data saved successfully:", data);
+      addHtml(`Order ${orderId} has been sent for cancellation.`);
+    } else {
+      console.error("Failed to save data:", data);
+      addHtml("Failed to send cancellation request.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    addHtml("An error occurred while processing your request.");
   }
 }
 
 // Function to extract orderId from the URL and send a request
-function cancelOrderRequest() {
-  console.log("Cancel Order");
-
-  // Ensure the HTML is added to the page
-  addHtml();
-
+function handleOrderCancellation() {
   // Get the current URL
-  const currentUrl = window.location.href;
-
-  // Extract the orderId parameter from the URL
-  const orderId = new URLSearchParams(window.location.search).get(
-    "cancelOrderId"
-  ); // Change 'cancelOrderId' to the actual parameter name
-  console.log(orderId);
+  const urlParams = new URLSearchParams(window.location.search);
+  const orderId = urlParams.get("cancelorderid"); // Adjusted to get the correct parameter
 
   if (orderId) {
-    // Call the sendReq function with the orderId
+    addHtml("Processing your cancellation...");
     sendReq(orderId);
   } else {
-    console.error("Order ID not found in the URL");
-    document.getElementById("message").innerText = "Order ID not found.";
+    addHtml("Welcome! No cancellation ID provided.");
   }
 }
 
-// Run the cancelOrderRequest function
-cancelOrderRequest();
+// Call the function to handle the order cancellation
+handleOrderCancellation();
