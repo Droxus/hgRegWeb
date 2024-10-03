@@ -14,7 +14,7 @@
     "rewrites": [
       {
         "source": "/cancelorder",
-        "destination": "/index.html"
+        "destination": "/cancelorder.html"
       },
       {
         "source": "**",
