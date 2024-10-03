@@ -13,6 +13,10 @@
     ],
     "rewrites": [
       {
+        "source": "/cancelorder",
+        "function": "cancelOrderHandler"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
