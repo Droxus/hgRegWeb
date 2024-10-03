@@ -195,6 +195,8 @@ function openFormPage() {
 }
 
 function main() {
-  openHomePage();
+  if (!document.getElementById("message")) {
+    openHomePage();
+  }
 }
 main();
