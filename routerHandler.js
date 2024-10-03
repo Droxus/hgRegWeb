@@ -8,7 +8,8 @@ function addHtml() {
 
 async function sendReq(orderId) {
   console.log(`Order ${orderId} is being canceled.`);
-  // You can replace this with the actual request logic
+
+  // The actual request logic
   const url =
     "https://hg-registration-bot-cd9ed03a6bc5.herokuapp.com/cancelorder";
 
@@ -32,15 +33,15 @@ async function sendReq(orderId) {
 // Function to extract orderId from the URL and send a request
 function cancelOrderRequest() {
   console.log("Cancel Order");
+
   // Ensure the HTML is added to the page
   addHtml();
 
   // Get the current URL
   const currentUrl = window.location.href;
 
-  // Extract the orderId from the URL query string
-  const urlParams = new URLSearchParams(window.location.search);
-  const orderId = urlParams.get(""); // Fix: query param is just the empty key after '?'
+  // Extract the part after '=' (since no key is provided, it's just the value)
+  const orderId = currentUrl.split("=")[1]; // Split by '=' and take the second part
   console.log(orderId);
 
   if (orderId) {
