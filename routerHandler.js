@@ -31,6 +31,7 @@ async function sendReq(orderId) {
 
 // Function to extract orderId from the URL and send a request
 function cancelOrderRequest() {
+  console.log("Cancel Order");
   // Ensure the HTML is added to the page
   addHtml();
 
@@ -40,6 +41,7 @@ function cancelOrderRequest() {
   // Extract the orderId from the URL query string
   const urlParams = new URLSearchParams(window.location.search);
   const orderId = urlParams.get(""); // Fix: query param is just the empty key after '?'
+  console.log(orderId);
 
   if (orderId) {
     // Call the mock sendReq function with the orderId
