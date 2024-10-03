@@ -3,6 +3,12 @@ console.log("Hello router handler!");
 // Function to add a message div to the page
 function addHtml(message) {
   // Create a div to show the cancellation message
+  const div = document.querySelector("#app");
+
+  while (div.firstChild) {
+    div.removeChild(div.firstChild);
+  }
+
   const messageDiv = document.createElement("div");
   messageDiv.id = "message";
   messageDiv.innerText = message; // Set initial message
@@ -49,8 +55,6 @@ function handleOrderCancellation() {
   if (orderId) {
     addHtml("Processing your cancellation...");
     sendReq(orderId);
-  } else {
-    addHtml("Welcome! No cancellation ID provided.");
   }
 }
 

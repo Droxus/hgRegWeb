@@ -520,7 +520,7 @@ export const forms = {
       maxlength: 16,
       minlength: 10,
       required: true,
-      inputHelper: "",
+      inputHelper: "Для связи с нами",
     },
     email: {
       id: "email",
