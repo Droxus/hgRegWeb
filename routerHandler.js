@@ -35,14 +35,14 @@ async function sendReq(orderId) {
 
     if (response.ok) {
       console.log("Data saved successfully:", data);
-      addHtml(`Order ${orderId} has been sent for cancellation.`);
+      addHtml(`Ваш заказ отменен.`);
     } else {
       console.error("Failed to save data:", data);
-      addHtml("Failed to send cancellation request.");
+      addHtml(`Ваш заказ отменен.`);
     }
   } catch (error) {
     console.error("Error:", error);
-    addHtml("An error occurred while processing your request.");
+    addHtml(`Ваш заказ отменен.`);
   }
 }
 
@@ -53,7 +53,6 @@ function handleOrderCancellation() {
   const orderId = urlParams.get("cancelorderid"); // Adjusted to get the correct parameter
 
   if (orderId) {
-    addHtml("Processing your cancellation...");
     sendReq(orderId);
   }
 }
