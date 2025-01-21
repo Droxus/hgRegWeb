@@ -24,8 +24,8 @@ export const HtmlBlocks = {
   },
   getServicePrize: (serviceType) => {
     return new Object({
-      [SERVICE.BASIC]: "50 zł",
-      [SERVICE.ADVANCED]: "100 zł",
+      [SERVICE.BASIC]: "250 zł",
+      [SERVICE.ADVANCED]: "300 zł",
       [SERVICE.ULTRA]: "1500 zł",
       [SERVICE.OTHERS]: "",
     })[serviceType];
